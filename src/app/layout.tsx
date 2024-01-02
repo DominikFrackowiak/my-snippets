@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +16,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
+		<html lang='en'>
+			<body className={inter.className}>
+				<div className='container mx-auto px-12'>
+					<nav style={{ display: 'flex', justifyContent: 'space-between' }}>
+						<Link href='/'>
+							<h2 className='font-bold m-3'>MySnippets</h2>
+						</Link>
+						<div>
+							<Link href='/snippets/new'>Add New</Link>
+						</div>
+					</nav>
+					{children}
+				</div>
+			</body>
+		</html>
+	)
 }
