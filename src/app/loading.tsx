@@ -2,11 +2,12 @@ export default function Loading() {
 	return (
 		<div
 			style={{
-				height: '100vh',
-				width: '100vw',
+				height: '80vh',
+				width: '100%',
 				display: 'flex',
 				justifyContent: 'center',
-				alignContent: 'center',
+				alignItems: 'center'
+				
 			}}
 		>
 			<h2>Loading...</h2>

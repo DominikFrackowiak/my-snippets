@@ -19,11 +19,11 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={inter.className}>
 				<div className='container mx-auto px-12'>
-					<nav style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<nav style={{ display: 'flex', justifyContent: 'space-between' }} className='mb-4 mt-2'>
 						<Link href='/'>
 							<h2 className='font-bold m-3'>MySnippets</h2>
 						</Link>
-						<div>
+						<div className=' flex justify-center items-center bg-blue-200 p-2 rounded'>
 							<Link href='/snippets/new'>Add New</Link>
 						</div>
 					</nav>
