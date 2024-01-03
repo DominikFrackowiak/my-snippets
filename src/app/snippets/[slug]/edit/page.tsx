@@ -103,7 +103,7 @@ export default async function EditPage({
 						/>
 					</div>
 
-					<SnippetEditForm snippet={snippet} />
+					{snippet && <SnippetEditForm snippet={snippet} />}
 
 					<div className='flex gap-4'>
 						<label className='w-12' htmlFor='tags'>
