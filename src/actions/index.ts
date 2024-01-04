@@ -11,44 +11,6 @@ interface EditSnippetArgs {
 	snippet: Snippet
 }
 
-// export async function editSnippet({
-// 	title,
-// 	code,
-// 	newTags,
-// 	snippet,
-// }: EditSnippetArgs) {
-// 	// Assuming `tags` is of type `FormDataEntryValue | null`
-// 	if (newTags !== null) {
-// 		const tagsArray = String(newTags)
-// 			.split(',')
-// 			.map(tag => tag.trim())
-
-// 		await db.snippet.update({
-// 			where: { id: snippet?.id },
-// 			data: {
-// 				title: title?.toLowerCase(),
-// 				code,
-// 				tags: {
-// 					connectOrCreate: tagsArray.map(tag => ({
-// 						where: { id: tag },
-// 						create: { id: tag },
-// 					})),
-// 				},
-// 			},
-// 		})
-// 	} else {
-// 		// Handle the case where tags are null, perhaps create a snippet without tags
-// 		await db.snippet.update({
-// 			where: { id: snippet?.id },
-// 			data: {
-// 				title,
-// 				code,
-// 				// tags are not included
-// 			},
-// 		})
-// 	}
-// }
-
 export async function editSnippet({
 	title,
 	code,
@@ -61,16 +23,16 @@ export async function editSnippet({
 				.map(tag => tag.trim())
 		: []
 
-	// Pobierz aktualne tagi dla snippetu
+	// Current tags for the snippet
 	const currentSnippet = await db.snippet.findUnique({
 		where: { id: snippet?.id },
 		include: { tags: true },
 	})
 	const currentTags = currentSnippet?.tags.map(tag => tag.id) || []
 
-	// Tagi do usunięcia
+	// Tags to be deleted
 	const tagsToRemove = currentTags.filter(tag => !tagsArray.includes(tag))
-	// Tagi do dodania
+	// Tags to be added
 	const tagsToAdd = tagsArray.filter(tag => !currentTags.includes(tag))
 
 	await db.snippet.update({
@@ -79,9 +41,9 @@ export async function editSnippet({
 			title: title?.toLowerCase(),
 			code,
 			tags: {
-				// Usuń niechciane tagi
+				// Delete tags 
 				disconnect: tagsToRemove.map(tag => ({ id: tag })),
-				// Dodaj nowe lub istniejące tagi
+				// Add new tags
 				connectOrCreate: tagsToAdd.map(tag => ({
 					where: { id: tag },
 					create: { id: tag },
