@@ -1,27 +1,44 @@
-import { notFound } from "next/navigation"
-
-import { db } from "@/db"
+import { redirect } from 'next/navigation'
+import { db } from '@/db'
+import SnippetEditForm from '@/components/snippet-edit-form'
 
 interface SnippetEditPageProps {
 	params: {
 		slug: string
 	}
+
+	searchParams: {
+		value: string
+	}
 }
 
-export default async function EditPage({params: {slug}} : SnippetEditPageProps) {
-  const title = slug.replaceAll('-', ' ')
+export default async function EditPage({
+	params: { slug },
+	searchParams,
+}: SnippetEditPageProps) {
+	
+	const originalTitle = slug.replaceAll('-', ' ')
 
 	const snippet = await db.snippet.findFirst({
-		where: { title },
-	}) 
+		where: { title: originalTitle },
+		include: {
+			tags: true,
+		},
+	})
 
- if(!snippet){
-  return notFound()
- }
+	console.log(snippet)
 
- 
+	
 
-  return (
-    <div>editing {title}</div>
-  )
+	return (
+		<div>
+			
+
+					{snippet && (
+						<SnippetEditForm snippet={snippet}/>
+					)}
+
+					
+		</div>
+	)
 }

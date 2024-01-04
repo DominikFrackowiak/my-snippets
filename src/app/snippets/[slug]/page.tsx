@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
 import { db } from '@/db'
+import { deleteSnippet } from '@/actions'
 
 interface SnippetShowPageProps {
 	params: {
@@ -21,6 +22,8 @@ export default async function SnippetShowPage({
 	if (!snippet) {
 		return notFound()
 	}
+
+	const deleteSnippetAction = deleteSnippet.bind(null, snippet.id)
 	return (
 		<div>
 			<div className='flex mb-3 justify-between items-center'>
@@ -29,7 +32,9 @@ export default async function SnippetShowPage({
 					<Link href={`/snippets/${params.slug}/edit`}>
 						<button className='p-2 border rounded'>Edit</button>
 					</Link>
-					<button className='p-2 border rounded'>Delete</button>
+					<form action={deleteSnippetAction}>
+						<button className='p-2 border rounded'>Delete</button>
+					</form>
 				</div>
 			</div>
 			<pre className='p-3 border rounded bg-gray-200 border-gray-200'>
@@ -38,6 +43,8 @@ export default async function SnippetShowPage({
 		</div>
 	)
 }
+
+// GenerateStaticParams every single snippet page
 
 export async function generateStaticParams() {
 	const snippets = await db.snippet.findMany({
