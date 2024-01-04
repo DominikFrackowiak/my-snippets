@@ -19,15 +19,10 @@ interface SnippetTags {
 export default function SnippetEditForm({ snippet }: SnippetTags) {
 	const [code, setCode] = useState(snippet.code)
 	const [title, setTitle] = useState(snippet.title)
-	// const [tags, setTags] = useState(snippet.tags)
 
-	console.log(snippet)
+	
 	const [newTags, setNewTags] = useState('')
-	const tags = snippet.tags
-
-	useEffect(() => {
-		console.log(tags)
-	}, [])
+	
 
 	const slug = snippet.title.replaceAll(' ', '-')
 	const originalTitle = slug.replaceAll('-', ' ')
@@ -46,8 +41,12 @@ export default function SnippetEditForm({ snippet }: SnippetTags) {
 
 	const editSnippetAction = () => {
 		editSnippet({ title, code, newTags, snippet })
-		router.push(`/snippets/${slug}`)
+		router.push(`/`)
 	}
+
+	useEffect(()=>{
+   console.log(newTags)
+	}, [newTags])
 
 	return (
 		<div>
