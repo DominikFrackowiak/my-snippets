@@ -7,19 +7,19 @@ import type { Snippet, Tag } from '@prisma/client'
 interface EditSnippetArgs {
 	title: string
 	code: string
-	tags: string | { id: string }[]
+	newTags: string 
 	snippet: Snippet
 }
 
 export async function editSnippet({
 	title,
 	code,
-	tags,
+	newTags,
 	snippet,
 }: EditSnippetArgs) {
 	// Assuming `tags` is of type `FormDataEntryValue | null`
-	if (tags !== null) {
-		const tagsArray = String(tags)
+	if (newTags !== null) {
+		const tagsArray = String(newTags)
 			.split(',')
 			.map(tag => tag.trim())
 

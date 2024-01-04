@@ -1,26 +1,42 @@
 'use client'
 
-import { useState} from 'react'
-import type { Snippet, Tag} from '@prisma/client'
+import { useEffect, useState } from 'react'
+import type { Snippet } from '@prisma/client'
 import { Editor } from '@monaco-editor/react'
 import { useRouter } from 'next/navigation'
 import { editSnippet } from '@/actions'
 
-interface SnippetTags extends Snippet {
-	
-	tags: { id: String }[]
-	snippet:  Snippet
+interface SnippetTags {
+	snippet: {
+		id: string
+		title: string
+		code: string
+		tags?: { id: string }[]
+	}
+	newTags?: string
 }
 
-
-export default function SnippetEditForm({ snippet}: SnippetTags) {
+export default function SnippetEditForm({ snippet }: SnippetTags) {
 	const [code, setCode] = useState(snippet.code)
 	const [title, setTitle] = useState(snippet.title)
-	const [tags, setTags] = useState(snippet.tags)
+	// const [tags, setTags] = useState(snippet.tags)
+
+	console.log(snippet)
+	const [newTags, setNewTags] = useState('')
+	const tags = snippet.tags
+
+	useEffect(() => {
+		console.log(tags)
+	}, [])
 
 	const slug = snippet.title.replaceAll(' ', '-')
 	const originalTitle = slug.replaceAll('-', ' ')
-	const originalTags = snippet?.tags.map(snippet => snippet.id).join(', ')
+
+	let originalTags
+
+	if (snippet.tags) {
+		originalTags = snippet.tags.map(snippet => snippet.id).join(', ')
+	}
 
 	const router = useRouter()
 
@@ -29,7 +45,7 @@ export default function SnippetEditForm({ snippet}: SnippetTags) {
 	}
 
 	const editSnippetAction = () => {
-		editSnippet({ title, code, tags, snippet })
+		editSnippet({ title, code, newTags, snippet })
 		router.push(`/snippets/${slug}`)
 	}
 
@@ -74,7 +90,7 @@ export default function SnippetEditForm({ snippet}: SnippetTags) {
 								className='border rounded p-2 w-full'
 								type='text'
 								defaultValue={originalTags}
-								onChange={e => setTags(e.target.value)}
+								onChange={e => setNewTags(e.target.value)}
 							/>
 						</div>
 

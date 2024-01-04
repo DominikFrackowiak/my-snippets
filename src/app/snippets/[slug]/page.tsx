@@ -44,6 +44,8 @@ export default async function SnippetShowPage({
 	)
 }
 
+// GenerateStaticParams every single snippet page
+
 export async function generateStaticParams() {
 	const snippets = await db.snippet.findMany({
 		include: {
