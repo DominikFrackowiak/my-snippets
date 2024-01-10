@@ -14,7 +14,7 @@ interface SnippetEditPageProps {
 
 export default async function EditPage({
 	params: { slug },
-	searchParams,
+	
 }: SnippetEditPageProps) {
 	
 	const originalTitle = slug.replaceAll('-', ' ')
@@ -26,7 +26,7 @@ export default async function EditPage({
 		},
 	})
 
-	console.log(snippet)
+	// console.log(snippet)
 
 	
 
