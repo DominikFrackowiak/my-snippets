@@ -1,7 +1,7 @@
 // 'use client'
 import Link from 'next/link'
 // import { auth, UserButton, useUser} from '@clerk/nextjs'
-import { UserButton} from '@clerk/nextjs'
+import { UserButton } from '@clerk/nextjs'
 // const { userId } = auth()
 // import { useRouter } from 'next/navigation'
 // import { usePathname } from 'next/navigation'
@@ -9,7 +9,7 @@ import { currentUser } from '@clerk/nextjs'
 
 export default async function Nav() {
 	const user = await currentUser()
-	console.log(user)
+
 	// const { user } = useUser()
 	// const router = useRouter()
 	// const pathname = usePathname()

@@ -46,14 +46,16 @@ export default async function SnippetShowPage({
 
 // GenerateStaticParams every single snippet page
 
-export async function generateStaticParams() {
-	const snippets = await db.snippet.findMany({
-		include: {
-			tags: true,
-		},
-	})
+// export async function generateStaticParams() {
+// 	const snippets = await db.snippet.findMany({
+// 		include: {
+// 			tags: true,
+// 		},
+// 	})
 
-	return snippets.map(snippet => ({
-		slug: snippet.title.replaceAll(' ', '-'),
-	}))
-}
+// 	console.log(snippets)
+
+// 	return snippets.map(snippet => ({
+// 		slug: snippet.title.replaceAll(' ', '-'),
+// 	}))
+// }
