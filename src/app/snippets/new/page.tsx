@@ -10,7 +10,7 @@ export default async function SnippetCreatePage() {
 	const userId = user?.id
 	const userName = user?.firstName + ' ' + user?.lastName
 	console.log(typeof userName)
-	const email = user?.emailAddresses[0]?.emailAddress
+	const email = user?.emailAddresses[0]?.emailAddress as string
 	console.log(email)
 	async function createSnippet(formData: FormData) {
 		// This need to be a server action!
