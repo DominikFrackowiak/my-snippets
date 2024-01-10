@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,20 +17,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-		<html lang='en'>
-			<body className={inter.className}>
-				<div className='container mx-auto px-12'>
-					<nav style={{ display: 'flex', justifyContent: 'space-between' }} className='mb-4 mt-2'>
-						<Link href='/'>
-							<h2 className='font-bold m-3'>MySnippets</h2>
-						</Link>
-						<div className=' flex justify-center items-center bg-blue-200 p-2 rounded'>
-							<Link href='/snippets/new'>Add New</Link>
-						</div>
-					</nav>
-					{children}
-				</div>
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang='en'>
+				<body className={inter.className}>
+					<div className='container mx-auto px-12'>
+						<nav
+							style={{ display: 'flex', justifyContent: 'space-between' }}
+							className='mb-4 mt-2'
+						>
+							<Link href='/'>
+								<h2 className='font-bold m-3'>MySnippets</h2>
+							</Link>
+							<div className=' flex justify-center items-center bg-blue-200 p-2 rounded'>
+								<Link href='/snippets/new'>Add New</Link>
+								<Link href='/sign-in'>Sign-in</Link>
+							</div>
+						</nav>
+						{children}
+					</div>
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }

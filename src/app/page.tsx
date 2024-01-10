@@ -51,3 +51,18 @@ export default async function Home({ searchParams }: any) {
 
 	return snippetsToRender
 }
+
+// GenerateStaticParams every single snippet page
+
+// export async function generateStaticParams() {
+// 	const snippets = await db.snippet.findMany({
+// 		include: {
+// 			tags: true,
+// 		},
+// 	})
+
+// 	return snippets.map(snippet => ({
+// 		slug: snippet.title.replaceAll(' ', '-'),
+// 	}))
+// }
+
