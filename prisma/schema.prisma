@@ -11,21 +11,20 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-// model User{
-//    id String @id @default(uuid())
-//    name String
-//    email String @unique
-//    password String
-//    snippets  Snippet[]
-// }
+model User{
+   id String @id 
+   name String
+   email String @unique
+   snippets  Snippet[]
+}
 
 model Snippet{
   id String @id @default(uuid())
   title String
   code String
   tags Tag[]
-  // userId String @unique
-  // user User @relation(fields: [userId], references: [id])
+  userId String 
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Tag{

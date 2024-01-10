@@ -1,7 +1,17 @@
 import { db } from '@/db'
 import { redirect } from 'next/navigation'
 
-export default function SnippetCreatePage() {
+import { auth, currentUser } from '@clerk/nextjs'
+import { emailAddresses } from '@clerk/clerk-sdk-node'
+
+export default async function SnippetCreatePage() {
+	const user = await currentUser()
+	console.log(user)
+	const userId = user?.id
+	const userName = user?.firstName + ' ' + user?.lastName
+	console.log(typeof userName)
+	const email = user?.emailAddresses[0]?.emailAddress
+	console.log(email)
 	async function createSnippet(formData: FormData) {
 		// This need to be a server action!
 		'use server'
@@ -13,6 +23,26 @@ export default function SnippetCreatePage() {
 
 		let snippet
 
+		if (!userId) {
+			throw new Error('User not logged in')
+		}
+
+		// Sprawdzenie, czy użytkownik istnieje w bazie danych
+		const existingUser = await db.user.findUnique({
+			where: { id: userId },
+		})
+
+		// Jeśli użytkownik nie istnieje, stwórz go
+		if (!existingUser) {
+			await db.user.create({
+				data: {
+					id: userId,
+					name: userName,
+     email
+				},
+			})
+		}
+
 		// Assuming `tags` is of type `FormDataEntryValue | null`
 		if (tags !== null) {
 			const tagsArray = String(tags)
@@ -22,6 +52,7 @@ export default function SnippetCreatePage() {
 			const createSnippetData = {
 				title: title.toLowerCase(),
 				code,
+				userId,
 				tags: {
 					connectOrCreate: tagsArray.map(tag => ({
 						where: { id: tag },
@@ -29,8 +60,6 @@ export default function SnippetCreatePage() {
 					})),
 				},
 			}
-
-			
 
 			snippet = await db.snippet.create({
 				data: createSnippetData,
@@ -41,11 +70,12 @@ export default function SnippetCreatePage() {
 				data: {
 					title,
 					code,
+					userId,
 					// tags are not included
 				},
 			})
 		}
-  
+
 		// Redirect
 		redirect('/')
 	}
