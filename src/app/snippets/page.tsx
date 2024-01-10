@@ -5,7 +5,7 @@ import { db } from '@/db'
 export default async function Home({ searchParams }: any) {
 	console.log(searchParams.query)
  
-
+ 
 
 	let snippets
 

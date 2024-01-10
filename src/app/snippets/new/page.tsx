@@ -1,8 +1,8 @@
 import { db } from '@/db'
 import { redirect } from 'next/navigation'
 
-import { auth, currentUser } from '@clerk/nextjs'
-import { emailAddresses } from '@clerk/clerk-sdk-node'
+import { currentUser } from '@clerk/nextjs'
+
 
 export default async function SnippetCreatePage() {
 	const user = await currentUser()
