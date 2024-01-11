@@ -45,9 +45,9 @@ export default function SnippetEditForm({ snippet }: SnippetTags) {
 		router.push(`/`)
 	}
 
-	useEffect(()=>{
-   console.log(newTags)
-	}, [newTags])
+	// useEffect(()=>{
+ //   console.log(newTags)
+	// }, [newTags])
 
 	return (
 		<div>
