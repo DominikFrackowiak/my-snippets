@@ -23,7 +23,7 @@ export default async function SnippetShowPage({
 		return notFound()
 	}
 
-	console.log(snippet)
+	// console.log(snippet)
 
 	const deleteSnippetAction = deleteSnippet.bind(null, snippet.id)
 	return (
@@ -48,16 +48,14 @@ export default async function SnippetShowPage({
 
 // GenerateStaticParams every single snippet page
 
-// export async function generateStaticParams() {
-// 	const snippets = await db.snippet.findMany({
-// 		include: {
-// 			tags: true,
-// 		},
-// 	})
+export async function generateStaticParams() {
+	const snippets = await db.snippet.findMany({
+		include: {
+			tags: true,
+		},
+	})
 
-// 	console.log(snippets)
-
-// 	return snippets.map(snippet => ({
-// 		slug: snippet.title.replaceAll(' ', '-'),
-// 	}))
-// }
+	return snippets.map(snippet => ({
+		slug: snippet.title.replaceAll(' ', '-'),
+	}))
+}
