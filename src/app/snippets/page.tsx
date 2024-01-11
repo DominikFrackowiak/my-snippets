@@ -6,7 +6,7 @@ import { currentUser } from '@clerk/nextjs'
 export default async function Home({ searchParams }: any) {
 	console.log(searchParams.query)
  const user = await currentUser()
-	console.log(user)
+	// console.log(user)
 	const userID = user?.id
  
 

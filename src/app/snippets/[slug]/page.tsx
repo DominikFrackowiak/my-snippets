@@ -23,6 +23,8 @@ export default async function SnippetShowPage({
 		return notFound()
 	}
 
+	console.log(snippet)
+
 	const deleteSnippetAction = deleteSnippet.bind(null, snippet.id)
 	return (
 		<div>
