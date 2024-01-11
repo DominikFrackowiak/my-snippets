@@ -11,6 +11,7 @@ interface SnippetTags {
 		id: string
 		title: string
 		code: string
+  userId: string
 		tags?: { id: string }[]
 	}
 	newTags?: string

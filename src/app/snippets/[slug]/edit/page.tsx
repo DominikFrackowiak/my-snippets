@@ -1,6 +1,6 @@
-import { redirect } from 'next/navigation'
+// import { redirect } from 'next/navigation'
 import { db } from '@/db'
-import SnippetEditForm from '@/components/snippet-edit-form'
+import SnippetEditForm from '@/components/SnippetEditForm'
 
 interface SnippetEditPageProps {
 	params: {
@@ -14,7 +14,7 @@ interface SnippetEditPageProps {
 
 export default async function EditPage({
 	params: { slug },
-	searchParams,
+	
 }: SnippetEditPageProps) {
 	
 	const originalTitle = slug.replaceAll('-', ' ')
@@ -42,3 +42,6 @@ export default async function EditPage({
 		</div>
 	)
 }
+
+
+

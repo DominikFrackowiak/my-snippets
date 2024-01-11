@@ -10,6 +10,7 @@
 		"postinstall": "prisma generate"
 	},
 	"dependencies": {
+		"@clerk/nextjs": "^4.29.2",
 		"@monaco-editor/react": "^4.6.0",
 		"@prisma/client": "^5.7.1",
 		"@vercel/postgres": "^0.5.1",
