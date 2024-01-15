@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import { ClerkProvider } from '@clerk/nextjs'
-import { EditorProvider } from '../../context/editorContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,16 +18,14 @@ export default function RootLayout({
 }) {
 	return (
 		<ClerkProvider>
-			<EditorProvider>
-				<html lang='en'>
-					<body className={inter.className}>
-						<div className='container mx-auto px-12'>
-							<Nav />
-							{children}
-						</div>
-					</body>
-				</html>
-			</EditorProvider>
+			<html lang='en'>
+				<body className={inter.className}>
+					<div className='container mx-auto px-12'>
+						<Nav />
+						{children}
+					</div>
+				</body>
+			</html>
 		</ClerkProvider>
 	)
 }
