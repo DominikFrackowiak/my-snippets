@@ -2,6 +2,8 @@ import { db } from '@/db'
 import { redirect } from 'next/navigation'
 
 import { currentUser } from '@clerk/nextjs'
+import CodeEditor from '@/components/CodeEditor'
+
 
 
 export default async function SnippetCreatePage() {
@@ -107,6 +109,7 @@ export default async function SnippetCreatePage() {
 						className='border rounded p-2 w-full'
 						required
 					/>
+					{/* <CodeEditor name='code'/> */}
 				</div>
 
 				<div className='flex gap-4'>

@@ -15,12 +15,9 @@ interface SnippetEditPageProps {
 
 export default async function EditPage({
 	params: { slug },
-	
 }: SnippetEditPageProps) {
-	
 	const originalTitle = slug.replaceAll('-', ' ')
 	const user = await currentUser()
-	// console.log(user)
 
 	const snippet = await db.snippet.findFirst({
 		where: { userId: user?.id, title: originalTitle },
@@ -29,22 +26,5 @@ export default async function EditPage({
 		},
 	})
 
-	// console.log(snippet)
-
-	
-
-	return (
-		<div>
-			
-
-					{snippet && (
-						<SnippetEditForm snippet={snippet}/>
-					)}
-
-					
-		</div>
-	)
+	return <div>{snippet && <SnippetEditForm snippet={snippet} />}</div>
 }
-
-
-

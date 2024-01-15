@@ -2,13 +2,11 @@ import Link from 'next/link'
 import { db } from '@/db'
 import { currentUser } from '@clerk/nextjs'
 
-
 export default async function Home({ searchParams }: any) {
-	console.log(searchParams.query)
- const user = await currentUser()
-	// console.log(user)
+
+	const user = await currentUser()
+	
 	const userID = user?.id
- 
 
 	let snippets
 
@@ -35,6 +33,10 @@ export default async function Home({ searchParams }: any) {
 			},
 		})
 	}
+
+
+
+	
 
 	const slugs = snippets.map(snippet =>
 		snippet.title.toLowerCase().replaceAll(' ', '-')
@@ -68,19 +70,4 @@ export default async function Home({ searchParams }: any) {
 	return snippetsToRender
 }
 
-//GenerateStaticParams every single snippet page
-
-// export async function generateStaticParams() {
-// 	const snippets = await db.snippet.findMany({
-// 		include: {
-// 			tags: true,
-// 		},
-// 	})
-
-// 	console.log(snippets)
-
-// 	return snippets.map(snippet => ({
-// 		slug: snippet.title.replaceAll(' ', '-'),
-// 	}))
-// }
 

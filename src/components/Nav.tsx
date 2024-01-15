@@ -1,25 +1,12 @@
-// 'use client'
 import Link from 'next/link'
-// import { auth, UserButton, useUser} from '@clerk/nextjs'
+
 import { UserButton } from '@clerk/nextjs'
-// const { userId } = auth()
-// import { useRouter } from 'next/navigation'
-// import { usePathname } from 'next/navigation'
+
 import { currentUser } from '@clerk/nextjs'
 
 export default async function Nav() {
 	const user = await currentUser()
 
-	// const { user } = useUser()
-	// const router = useRouter()
-	// const pathname = usePathname()
-	// console.log(pathname)
-
-	// if(user){
-	// 	router.push(`${pathname}?id=${user.id}&firstName=${user.firstName}&lastName=${user.lastName}`)
-	// } else {
-	// 	router.push(`${pathname}`)
-	// }
 	return (
 		<nav
 			style={{ display: 'flex', justifyContent: 'space-between' }}
