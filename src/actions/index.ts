@@ -12,20 +12,19 @@ interface EditSnippetArgs {
 	snippet: Snippet
 }
 
+interface CreateSnippetArgs {
+	title: string
+	code: string
+	tags: string
+}
 
+export async function createSnippet({ title, code, tags }: CreateSnippetArgs) {
+	const user = await currentUser()
 
-export async function createSnippet(formData: FormData) {
-		const user = await currentUser()
+	const userId = user?.id
+	const userName = user?.firstName + ' ' + user?.lastName
 
-		const userId = user?.id
-		const userName = user?.firstName + ' ' + user?.lastName
-
-		const email = user?.emailAddresses[0]?.emailAddress as string
-
-	// Check the user's inputs and make sure they're valid
-	const title = formData.get('title') as string
-	const code = formData.get('code') as string
-	const tags = formData.get('tags')
+	const email = user?.emailAddresses[0]?.emailAddress as string
 
 	let snippet
 
@@ -33,12 +32,12 @@ export async function createSnippet(formData: FormData) {
 		throw new Error('User not logged in')
 	}
 
-	// Sprawdzenie, czy użytkownik istnieje w bazie danych
+	// Check if the user exists in the db
 	const existingUser = await db.user.findUnique({
 		where: { id: userId },
 	})
 
-	// Jeśli użytkownik nie istnieje, stwórz go
+	// if user does not exist, create the user
 	if (!existingUser) {
 		await db.user.create({
 			data: {
@@ -83,7 +82,7 @@ export async function createSnippet(formData: FormData) {
 	}
 
 	// Redirect
-	redirect('/')
+	// redirect('/')
 }
 
 export async function editSnippet({
@@ -116,7 +115,7 @@ export async function editSnippet({
 			title: title?.toLowerCase(),
 			code,
 			tags: {
-				// Delete tags 
+				// Delete tags
 				disconnect: tagsToRemove.map(tag => ({ id: tag })),
 				// Add new tags
 				connectOrCreate: tagsToAdd.map(tag => ({
