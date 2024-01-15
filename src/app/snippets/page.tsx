@@ -3,9 +3,8 @@ import { db } from '@/db'
 import { currentUser } from '@clerk/nextjs'
 
 export default async function Home({ searchParams }: any) {
-
 	const user = await currentUser()
-	
+
 	const userID = user?.id
 
 	let snippets
@@ -13,6 +12,7 @@ export default async function Home({ searchParams }: any) {
 	if (searchParams.query) {
 		snippets = await db.snippet.findMany({
 			where: {
+				userId: userID,
 				tags: {
 					some: {
 						id: searchParams.query,
@@ -33,10 +33,6 @@ export default async function Home({ searchParams }: any) {
 			},
 		})
 	}
-
-
-
-	
 
 	const slugs = snippets.map(snippet =>
 		snippet.title.toLowerCase().replaceAll(' ', '-')
@@ -69,5 +65,3 @@ export default async function Home({ searchParams }: any) {
 
 	return snippetsToRender
 }
-
-
